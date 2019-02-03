@@ -8,18 +8,21 @@ const settings = {
 };
 
 const sketch = () => {
-  const palette = random.shuffle(random.pick(palettes).slice(0,3));
+  const palette = random.shuffle(random.pick(palettes).slice(0,2));
+  console.log(palette);
 
   const createGrid = () => {
     const points = [];
     const count = 60;
     for (let x = 0; x < count; x++) {
       for (let y = 0; y < count; y++) {
-        const u = x / (count-1);
-        const v = y / (count-1);
+        const u = count <= 1 ? 0.5 : x / (count-1);
+        const v = count <= 1 ? 0.5 : y / (count-1);
+        const radius = Math.abs(random.noise2D(u, v) * 0.01)
+        // pallete : ["#30261c", "#403831"]
         points.push({
           color: random.pick(palette),
-          radius: Math.abs(random.gaussian() * 0.003),
+          radius,
           position: [ u, v ]
         })
       }
@@ -27,7 +30,7 @@ const sketch = () => {
     return points;
   }
   // const points = createGrid()
-  random.setSeed(11);
+  random.setSeed(110);
   const points = createGrid().filter(() => random.value() > 0.5);
   const margin = 300;
 
