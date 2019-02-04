@@ -9,15 +9,15 @@ const settings = {
 
 
 random.setSeed(random.getRandomSeed());
-console.log(random.getSeed());
+console.log(random.getSeed);
 
 const sketch = () => {
-  const palette = random.shuffle(random.pick(palettes).slice(0,3));
-  console.log(palette);
+  const palette = random.shuffle(random.pick(palettes).slice(0,2));
+  // console.log(palette);
 
   const createGrid = () => {
     const points = [];
-    const count = 50;
+    const count = 150;
     for (let x = 0; x < count; x++) {
       for (let y = 0; y < count; y++) {
         const u = count <= 1 ? 0.5 : x / (count-1);
@@ -25,7 +25,7 @@ const sketch = () => {
         const radius = Math.abs(random.noise2D(u, v) * 0.1)
         // pallete : ["#30261c", "#403831"]
         points.push({
-          color: random.pick(palette),
+          color: random.pick(["#fc354c", "#29221f"]),
           radius,
           position: [ u, v ],
           rotation: random.noise2D(u, v)
@@ -38,7 +38,7 @@ const sketch = () => {
   
 
   const points = createGrid().filter(() => random.value() > 0.5);
-  const margin = 300;
+  const margin = 150;
 
   return ({ context, width, height }) => {
     context.fillStyle = "white";
@@ -76,7 +76,7 @@ const sketch = () => {
       context.translate(x,y);
       context.rotate(rotation);
       // context.fillText('F', x, y);
-      context.fillText('=', 0, 0);
+      context.fillText('~', 0, 0);
       // context.fillText('👻', 0, 0);
 
       context.restore();
