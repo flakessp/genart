@@ -10,6 +10,8 @@ require('three/examples/js/controls/OrbitControls');
 
 const settings = {
   // Make the loop animated
+  fps: 30,
+  duration: 4,
   animate: true,
   // Get a WebGL canvas rather than 2D
   context: 'webgl',
@@ -24,7 +26,7 @@ const sketch = ({ context }) => {
   });
 
   // WebGL background color
-  renderer.setClearColor('white', 1);
+  renderer.setClearColor('#518AEA', 1);
 
   // Setup a camera
   const camera = new THREE.OrthographicCamera();
@@ -40,8 +42,9 @@ const sketch = ({ context }) => {
     const mesh = new THREE.Mesh(
       box,
       new THREE.MeshStandardMaterial({
-        color: random.pick(["#fc354c", "#29221f"]),
+        // color: random.pick(["white", "black"]),
         // color: random.pick(palette),
+        color: 'white',
         flatShading: true,
         wireframe: false
       })
@@ -56,15 +59,15 @@ const sketch = ({ context }) => {
       random.range(-1, 1),
       random.range(-1, 1)
     )
-    mesh.scale.multiplyScalar(0.5);
+    mesh.scale.multiplyScalar(0.4);
     scene.add(mesh);
   }
 
-  scene.add(new THREE.AmbientLight('yellow'));
+  // scene.add(new THREE.AmbientLight('red'));
 
   // light
-  const light = new THREE.DirectionalLight('white', 1);
-  light.position.set(0, 4, 0);
+  const light = new THREE.DirectionalLight('white', 3);
+  light.position.set(0, 4, 4);
   scene.add(light);
 
 
@@ -98,7 +101,8 @@ const sketch = ({ context }) => {
       camera.updateProjectionMatrix();
     },
     // Update & render your scene here
-    render ({ time }) {
+    render ({ playhead }) {
+      scene.rotation.z= playhead * Math.PI * 2;
       renderer.render(scene, camera);
     },
     // Dispose of events & renderer for cleaner hot-reloading
