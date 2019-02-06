@@ -12,12 +12,12 @@ random.setSeed(random.getRandomSeed());
 console.log(random.getSeed);
 
 const sketch = () => {
-  const palette = random.shuffle(random.pick(palettes).slice(0,2));
+  const palette = random.shuffle(random.pick(palettes).slice(0,5));
   // console.log(palette);
 
   const createGrid = () => {
     const points = [];
-    const count = 150;
+    const count = 30;
     for (let x = 0; x < count; x++) {
       for (let y = 0; y < count; y++) {
         const u = count <= 1 ? 0.5 : x / (count-1);
@@ -25,7 +25,7 @@ const sketch = () => {
         const radius = Math.abs(random.noise2D(u, v) * 0.1)
         // pallete : ["#30261c", "#403831"]
         points.push({
-          color: random.pick(["#fc354c", "#29221f"]),
+          color: 'black',
           radius,
           position: [ u, v ],
           rotation: random.noise2D(u, v)
@@ -75,9 +75,9 @@ const sketch = () => {
       context.font = `${radius*width}px "Optician Sans"`;
       context.translate(x,y);
       context.rotate(rotation);
-      // context.fillText('F', x, y);
+      context.fillText('F', x, y);
       context.fillText('~', 0, 0);
-      // context.fillText('👻', 0, 0);
+      context.fillText('🌲', 0, 0);
 
       context.restore();
 

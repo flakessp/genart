@@ -80,3 +80,4 @@ typings/
 .dynamodb/
 
 tmp
+.DS_Store
